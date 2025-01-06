@@ -38,6 +38,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.ProjectsFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -123,11 +124,10 @@
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.linkLabel1);
-            this.panel2.Controls.Add(this.panel3);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(220, 157);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(780, 311);
+            this.panel2.Size = new System.Drawing.Size(780, 241);
             this.panel2.TabIndex = 4;
             // 
             // linkLabel1
@@ -135,7 +135,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.linkLabel1.Location = new System.Drawing.Point(277, 111);
+            this.linkLabel1.Location = new System.Drawing.Point(288, 76);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(226, 29);
             this.linkLabel1.TabIndex = 2;
@@ -147,30 +147,43 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.LightSlateGray;
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(0, 238);
+            this.panel3.Location = new System.Drawing.Point(219, 327);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(780, 71);
             this.panel3.TabIndex = 0;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(316, 17);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(319, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(176, 36);
             this.label2.TabIndex = 0;
             this.label2.Text = "New Project";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // ProjectsFlowLayout
+            // 
+            this.ProjectsFlowLayout.Location = new System.Drawing.Point(219, 422);
+            this.ProjectsFlowLayout.Name = "ProjectsFlowLayout";
+            this.ProjectsFlowLayout.Size = new System.Drawing.Size(781, 392);
+            this.ProjectsFlowLayout.TabIndex = 5;
             // 
             // Projects1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1209, 867);
+            this.Controls.Add(this.ProjectsFlowLayout);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Name = "Projects1";
             this.Text = "Projects1";
+            this.Load += new System.EventHandler(this.Projects1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -192,5 +205,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FlowLayoutPanel ProjectsFlowLayout;
     }
 }

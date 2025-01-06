@@ -78,7 +78,7 @@
             this.linkEquipment.TabIndex = 30;
             this.linkEquipment.TabStop = true;
             this.linkEquipment.Text = "Edit";
-            this.linkEquipment.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEquipment_LinkClicked);
+            this.linkEquipment.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEquipment_LinkClicked_1);
             // 
             // linkMaterial
             // 
@@ -89,7 +89,7 @@
             this.linkMaterial.TabIndex = 29;
             this.linkMaterial.TabStop = true;
             this.linkMaterial.Text = "Edit";
-            this.linkMaterial.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMaterial_LinkClicked);
+            this.linkMaterial.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMaterial_LinkClicked_1);
             // 
             // txtTotal
             // 

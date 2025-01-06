@@ -18,13 +18,13 @@ namespace SiteCostProApp.Forms
     public partial class Material : Form
     {
         String ProjectName;
-        public Material(string projectName)
+        public Material(string _projectName)
         {
             InitializeComponent();
-            lblProjectName.Text = "PROJECT: " + projectName;
+            lblProjectName.Text = "PROJECT: " + ProductName;
             materialDataGridView.Font = new Font("Arial", 12, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
-            ProjectName = projectName;
+            ProjectName = _projectName;
 
 
         }
@@ -47,7 +47,7 @@ namespace SiteCostProApp.Forms
             try
             {
                 // Get the document reference from Firestore
-                DocumentReference docRef = db.Collection("Projects").Document("hadhi");
+                DocumentReference docRef = db.Collection("Projects").Document(ProjectName);
                 DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
                 if (snapshot.Exists)
@@ -61,7 +61,7 @@ namespace SiteCostProApp.Forms
                         if (materialsList == null || !materialsList.Any())
                         {
                             MessageBox.Show("Materials array is empty.");
-                            return;
+                            //return;
                         }
 
                         // Fill material details from Firestore data
@@ -222,7 +222,7 @@ namespace SiteCostProApp.Forms
 
             UpdateMaterialsToFirestore(ProjectName);
 
-            ProjectDetails projectDetails = new ProjectDetails(ProductName, total);
+            ProjectDetails projectDetails = new ProjectDetails(ProjectName, total);
             projectDetails.Show();
             this.Hide();
         }

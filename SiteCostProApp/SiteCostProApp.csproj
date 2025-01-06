@@ -231,12 +231,6 @@
     <Compile Include="Forms\ProjectNameInput.Designer.cs">
       <DependentUpon>ProjectNameInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Projects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Projects.Designer.cs">
-      <DependentUpon>Projects.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Projects1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,9 +277,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProjectNameInput.resx">
       <DependentUpon>ProjectNameInput.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Projects.resx">
-      <DependentUpon>Projects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Projects1.resx">
       <DependentUpon>Projects1.cs</DependentUpon>
