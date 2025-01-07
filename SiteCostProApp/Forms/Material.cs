@@ -83,6 +83,8 @@ namespace SiteCostProApp.Forms
 
                         // Bind the list to the DataGridView
                         materialDataGridView.DataSource = new BindingList<MaterialProperty>(materialDetails);
+
+                        txtMaterialCost.Text = GetTotal("Total").ToString();
                     }
                     else
                     {

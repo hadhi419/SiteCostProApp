@@ -38,15 +38,17 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.txtMaterialCost = new System.Windows.Forms.TextBox();
             this.Material_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Unit_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.txtMaterialCost = new System.Windows.Forms.TextBox();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -57,7 +59,7 @@
             this.lblProjectName.Location = new System.Drawing.Point(21, 20);
             this.lblProjectName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(151, 38);
+            this.lblProjectName.Size = new System.Drawing.Size(119, 30);
             this.lblProjectName.TabIndex = 0;
             this.lblProjectName.Text = "PROJECT: ";
             // 
@@ -86,10 +88,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Dubai", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(368, 128);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 51);
+            this.label1.Size = new System.Drawing.Size(156, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "MATERIALS";
             // 
@@ -149,23 +151,6 @@
             this.materialDataGridView.TabIndex = 7;
             this.materialDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.materialDataGridView_CellContentClick);
             // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(742, 146);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(109, 23);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save and Close";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // txtMaterialCost
-            // 
-            this.txtMaterialCost.Location = new System.Drawing.Point(716, 194);
-            this.txtMaterialCost.Name = "txtMaterialCost";
-            this.txtMaterialCost.Size = new System.Drawing.Size(171, 23);
-            this.txtMaterialCost.TabIndex = 9;
-            // 
             // Material_Name
             // 
             this.Material_Name.DataPropertyName = "Material_Name";
@@ -205,9 +190,31 @@
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(742, 146);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(109, 23);
+            this.btnSave.TabIndex = 8;
+            this.btnSave.Text = "Save and Close";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // txtMaterialCost
+            // 
+            this.txtMaterialCost.Location = new System.Drawing.Point(716, 194);
+            this.txtMaterialCost.Name = "txtMaterialCost";
+            this.txtMaterialCost.Size = new System.Drawing.Size(171, 20);
+            this.txtMaterialCost.TabIndex = 9;
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // Material
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 601);
             this.Controls.Add(this.txtMaterialCost);
@@ -222,6 +229,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,5 +250,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit_Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }

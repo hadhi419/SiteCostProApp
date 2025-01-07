@@ -16,14 +16,14 @@ namespace SiteCostProApp.Forms
     public partial class Equipment : Form
     {
 
-        public string projectName = "";
+        public string ProjectName = "";
         public Equipment(string _projectName)
         {
             InitializeComponent();
-            lblProjectName.Text = "PROJECT: " + projectName;
+            lblProjectName.Text = "PROJECT: " + _projectName;
             EquipmentDataGrid.Font = new Font("Arial", 12, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
-            projectName = projectName;
+            ProjectName = _projectName;
         }
 
         private async void Equipment_Load(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace SiteCostProApp.Forms
             try
             {
                 // Get the document reference from Firestore
-                DocumentReference docRef = db.Collection("Projects").Document(ProductName);
+                DocumentReference docRef = db.Collection("Projects").Document(ProjectName);
                 DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
                 if (snapshot.Exists)
@@ -60,21 +60,22 @@ namespace SiteCostProApp.Forms
                         // Fill material details from Firestore data
                         foreach (var equipment in equipmentList)
                         {
-                            var materialMap = equipment as Dictionary<string, object>;
-                            if (materialMap == null) continue;
+                            var equipmentMap = equipment as Dictionary<string, object>;
+                            if (equipmentMap == null) continue;
 
                             // Add material data to the list
                             equipmentDetails.Add(new EquipmentProperty
                             {
-                                Equipment_Name = materialMap.ContainsKey("Equipment_Name") ? materialMap["Equipment_Name"]?.ToString() : "Unknown",
-                                Usage_Time = materialMap.ContainsKey("Usage_Time") ? materialMap["Usage_Time"]?.ToString() : "Unknown",
-                                Unit_Price = materialMap.ContainsKey("Unit_Price") ? materialMap["Unit_Price"]?.ToString() : "Unknown",
-                                Total = materialMap.ContainsKey("Total") ? materialMap["Total"]?.ToString() : "Unknown"
+                                Equipment_Name = equipmentMap.ContainsKey("Equipment_Name") ? equipmentMap["Equipment_Name"]?.ToString() : "Unknown",
+                                Usage_Time = equipmentMap.ContainsKey("Usage_Time") ? equipmentMap["Usage_Time"]?.ToString() : "Unknown",
+                                Unit_Price = equipmentMap.ContainsKey("Unit_Price") ? equipmentMap["Unit_Price"]?.ToString() : "Unknown",
+                                Total = equipmentMap.ContainsKey("Total") ? equipmentMap["Total"]?.ToString() : "Unknown"
                             });
                         }
 
                         // Bind the list to the DataGridView
                         EquipmentDataGrid.DataSource = new BindingList<EquipmentProperty>(equipmentDetails);
+                        txtEquipmentCost.Text = GetTotal("Total").ToString();
                     }
                     else
                     {
@@ -150,7 +151,7 @@ namespace SiteCostProApp.Forms
             }
         }
 
-        double MaterialTotal;
+        double EquipmwntTotal;
 
         private void UpdateResultColumn(int rowIndex)
         {
@@ -177,7 +178,7 @@ namespace SiteCostProApp.Forms
             txtEquipmentCost.Text = GetTotal("Total").ToString("F2");
 
             // Update the MaterialTotal value
-            MaterialTotal = GetTotal("Total");
+            EquipmwntTotal = GetTotal("Total");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -185,15 +186,15 @@ namespace SiteCostProApp.Forms
             double total = GetTotal("Total");
             //MessageBox.Show(total.ToString());
 
-            UpdateMaterialsToFirestore(projectName);
+            UpdateEquipmentsToFirestore(ProjectName);
 
-            ProjectDetails projectDetails = new ProjectDetails(projectName, total);
+            ProjectDetails projectDetails = new ProjectDetails(ProjectName, 00, total);
             projectDetails.Show();
             this.Hide();
         }
 
 
-        private async Task UpdateMaterialsToFirestore(string projectName)
+        private async Task UpdateEquipmentsToFirestore(string projectName)
         {
             try
             {
@@ -210,7 +211,7 @@ namespace SiteCostProApp.Forms
                         continue;
 
                     // Create a MaterialProperty object from DataGridView row
-                    var equipent = new EquipmentProperty
+                    var equipment = new EquipmentProperty
                     {
                         Equipment_Name = row.Cells["Equipment_Name"].Value.ToString(),
                         //Unit = row.Cells["Unit"].Value?.ToString() ?? "",
@@ -220,12 +221,12 @@ namespace SiteCostProApp.Forms
 
                     };
 
-                    updatedEquipments.Add(equipent);
+                    updatedEquipments.Add(equipment);
                 }
 
                 // Update only the Materials field in Firestore
                 var projectRef = db.Collection("Projects").Document(projectName);
-                await projectRef.UpdateAsync("Materials", updatedEquipments);
+                await projectRef.UpdateAsync("Equipments", updatedEquipments);
 
                 MessageBox.Show("Equipments updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

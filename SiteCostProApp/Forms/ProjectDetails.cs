@@ -19,12 +19,36 @@ namespace SiteCostProApp.Forms
             lblProject.Text = ProjectName;
         }
 
-        public ProjectDetails(string projectName, double materialTotal)
+        double materialTotal = 0;
+        double equipmentTotal = 0;
+        double labourlTotal = 0;
+        double miscelleneousTotal = 0;
+
+        public ProjectDetails(string projectName, double _materialTotal)
         {
             InitializeComponent();
             ProjectName = projectName;
             lblProject.Text = ProjectName;
-            txtMaterial.Text = materialTotal.ToString();
+            txtMaterial.Text = _materialTotal.ToString();
+            materialTotal = _materialTotal;
+        }
+
+        public ProjectDetails(string projectName, double _materialTotal, double _equipmentTotal)
+        {
+            InitializeComponent();
+            ProjectName = projectName;
+            lblProject.Text = ProjectName;
+            txtEquipment.Text = _equipmentTotal.ToString();
+            equipmentTotal = _equipmentTotal;
+        }
+        
+        public ProjectDetails(string projectName, double _materialTotal, double _equipmentTotal, double _labourTotal)
+        {
+            InitializeComponent();
+            ProjectName = projectName;
+            lblProject.Text = ProjectName;
+            txtLabour.Text = _labourTotal.ToString();
+            labourlTotal = _labourTotal;
         }
 
         private async void ProjectDetails_Load(object sender, EventArgs e)
@@ -73,6 +97,91 @@ namespace SiteCostProApp.Forms
                     MessageBox.Show("No materials found in the document.");
                 }
 
+
+
+                if (documentData.ContainsKey("Labour"))
+                {
+                    var laboursList = documentData["Labour"] as IEnumerable<object>;
+                    if (laboursList == null || !laboursList.Any())
+                    {
+                        //MessageBox.Show("Materials array is empty.");
+                        //return;
+                    }
+
+                    // Calculate the total
+                    int total = 0;
+                    foreach (var labour in laboursList)
+                    {
+                        if (labour is Dictionary<string, object> labourMap && labourMap.ContainsKey("Total"))
+                        {
+                            total += Convert.ToInt32(labourMap["Total"] ?? 0);
+                        }
+                    }
+
+                    // Update the UI with the total
+                    txtLabour.Text = total.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No Labour found in the document.");
+                }
+
+
+
+                if (documentData.ContainsKey("Equipments"))
+                {
+                    var equipmentsList = documentData["Equipments"] as IEnumerable<object>;
+                    if (equipmentsList == null || !equipmentsList.Any())
+                    {
+                        //MessageBox.Show("Materials array is empty.");
+                        //return;
+                    }
+
+                    // Calculate the total
+                    int total = 0;
+                    foreach (var equipment in equipmentsList)
+                    {
+                        if (equipment is Dictionary<string, object> labourMap && labourMap.ContainsKey("Total"))
+                        {
+                            total += Convert.ToInt32(labourMap["Total"] ?? 0);
+                        }
+                    }
+
+                    // Update the UI with the total
+                   txtEquipment.Text = total.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No Labour found in the document.");
+                }
+
+                if (documentData.ContainsKey("Miscellaneous"))
+                {
+                    var miscellaneousList = documentData["Miscellaneous"] as IEnumerable<object>;
+                    if (miscellaneousList == null || !miscellaneousList.Any())
+                    {
+                        //MessageBox.Show("Materials array is empty.");
+                        //return;
+                    }
+
+                    // Calculate the total
+                    int total = 0;
+                    foreach (var miscellaneous in miscellaneousList)
+                    {
+                        if (miscellaneous is Dictionary<string, object> materialMap && materialMap.ContainsKey("Total"))
+                        {
+                            total += Convert.ToInt32(materialMap["Total"] ?? 0);
+                        }
+                    }
+
+                    // Update the UI with the total
+                    txtMisc.Text = total.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No miscellaneous found in the document.");
+                }
+
                 //MessageBox.Show("Materials loaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -107,6 +216,20 @@ namespace SiteCostProApp.Forms
             Equipment equipment = new Equipment(ProjectName);
             this.Hide();
             equipment.Show();
+        }
+
+        private void linkLabour_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Labour labour = new Labour(ProjectName);
+            this.Hide();
+            labour.Show();
+        }
+
+        private void linkMisc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Miscellaneous miscellaneous = new Miscellaneous(ProjectName);
+            miscellaneous.Show();
+            this.Hide();
         }
     }
 }

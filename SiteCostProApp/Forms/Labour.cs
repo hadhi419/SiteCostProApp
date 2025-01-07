@@ -1,4 +1,6 @@
 ﻿using Google.Api.Gax.ResourceNames;
+using Google.Cloud.Firestore;
+using SiteCostProApp.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,31 +15,163 @@ namespace SiteCostProApp.Forms
 {
     public partial class Labour : Form
     {
-        public Labour(string projectName)
+
+        string projectName;
+        public Labour(string _projectName)
         {
             InitializeComponent();
             lblProjectName.Text = "PROJECT: " + projectName;
-            dataGridView1.Font = new Font("Arial", 12, FontStyle.Regular);
+            labourDataGridView.Font = new Font("Arial", 12, FontStyle.Regular);
             this.StartPosition = FormStartPosition.CenterScreen;
+            projectName = _projectName;
         }
 
-        private void Labour_Load(object sender, EventArgs e)
+        private async void Labour_Load(object sender, EventArgs e)
         {
-            int desiredRowCount = 10;
-            dataGridView1.RowCount = desiredRowCount;
-            this.StartPosition = FormStartPosition.CenterScreen;
+
+            txtLabourCost.Text = GetTotal("Total").ToString();
+            var labourDetails = new List<LabourProperty>();
+
+            int defaultRowCount = 10;
+            // Add default empty material entries
 
 
+            labourDataGridView.CellValueChanged += labourDataGridView_CellValueChanged;
 
-            dataGridView1.Columns[0].HeaderText = "Labour Type";
-            dataGridView1.Columns[1].HeaderText = "Work Duration";
-            dataGridView1.Columns[2].HeaderText = "Unit Wage";
-            dataGridView1.Columns[3].HeaderText = "Total";
+            var db = FirestoreHelper.Database;
+            try
+            {
+                // Get the document reference from Firestore
+                DocumentReference docRef = db.Collection("Projects").Document(projectName);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
-            AddComboBoxColumnForMetrics();
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> documentData = snapshot.ToDictionary();
 
+                    if (documentData.ContainsKey("Labour"))
+                    {
+                        var laboursList = documentData["Labour"] as IEnumerable<object>;
 
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+                        if (laboursList == null || !laboursList.Any())
+                        {
+                            MessageBox.Show("Labours array is empty.");
+                            //return;
+                        }
+
+                        // Fill material details from Firestore data
+                        foreach (var labour in laboursList)
+                        {
+                            var labourMap = labour as Dictionary<string, object>;
+                            if (labourMap == null) continue;
+
+                            // Add material data to the list
+                            labourDetails.Add(new LabourProperty
+                            {
+                                Labour_Type = labourMap.ContainsKey("Labour_Type") ? labourMap["Labour_Type"]?.ToString() : "Unknown",
+                                Work_Time = labourMap.ContainsKey("Work_Time") ? labourMap["Work_Time"]?.ToString() : "Unknown",
+                                Unit = labourMap.ContainsKey("Unit") ? labourMap["Unit"]?.ToString() : "Unknown",
+                                Unit_Vage = labourMap.ContainsKey("Unit_Vage") ? labourMap["Unit_Vage"]?.ToString() : "Unknown",
+                                Total = labourMap.ContainsKey("Total") ? labourMap["Total"]?.ToString() : "Unknown"
+                            });
+                        }
+
+                        // Bind the list to the DataGridView
+                        // Bind the list to the DataGridView
+                        labourDataGridView.DataSource = new BindingList<LabourProperty>(labourDetails);
+
+                        txtLabourCost.Text = GetTotal("Total").ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Labours found in the document.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Document does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading materials: {ex.Message}\nStack Trace: {ex.StackTrace}");
+            }
+
+            
+        }
+
+        private void labourDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Check if the current row count is exceeded by user input
+            if (e.RowIndex == labourDataGridView.RowCount - 1 && e.ColumnIndex != -1)
+            {
+                // Automatically add a new row if user starts typing in the last row
+                var materialDetails = (BindingList<MaterialProperty>)labourDataGridView.DataSource;
+                materialDetails.Add(new MaterialProperty());
+            }
+
+            if (e.RowIndex < 0)
+                return;
+
+            // Calculate total only if Unit Price changes (check for column index of Unit_Price)
+            if (e.ColumnIndex == 3) // Assuming Unit_Price is in column index 3
+            {
+                try
+                {
+                    // Call UpdateResultColumn to update the Total column
+                    UpdateResultColumn(e.RowIndex);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error calculating total: " + ex.Message);
+                }
+            }
+        }
+        double LabourTotal;
+        private void UpdateResultColumn(int rowIndex)
+        {
+            // Get the values from UnitPrice and Quantity columns
+            string workTimeText = labourDataGridView.Rows[rowIndex].Cells["Work_Time"].Value?.ToString() ?? "0";
+            string unitVageText = labourDataGridView.Rows[rowIndex].Cells["Unit_Vage"].Value?.ToString() ?? "0";
+
+            // Try parsing the values to double
+            if (double.TryParse(workTimeText, out double workTime) && double.TryParse(unitVageText, out double unitVage))
+            {
+                // Multiply the values
+                double result = workTime * unitVage;
+
+                // Set the result in the Total column
+                labourDataGridView.Rows[rowIndex].Cells["Total"].Value = result.ToString(); // Format to 2 decimal places
+            }
+            else
+            {
+                // If parsing fails, set the result as "Invalid input"
+                labourDataGridView.Rows[rowIndex].Cells["Total"].Value = "Invalid input";
+            }
+
+            // Update the MaterialCost textbox with the updated total
+            labourDataGridView.Text = GetTotal("Total").ToString("F2");
+            txtLabourCost.Text = GetTotal("Total").ToString("F2");
+            // Update the MaterialTotal value
+            LabourTotal = GetTotal("Total");
+        }
+
+        private double GetTotal(string columnName)
+        {
+            double sum = 0;
+
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in labourDataGridView.Rows)
+            {
+                // Ensure the cell value is not null or empty
+                if (row.Cells[columnName].Value != null && row.Cells[columnName].Value.ToString() != string.Empty)
+                {
+                    // Add the value to sum (convert it to double)
+                    sum += Convert.ToDouble(row.Cells[columnName].Value);
+                }
+            }
+
+            return sum;
         }
 
         private void AddComboBoxColumnForMetrics()
@@ -55,7 +189,7 @@ namespace SiteCostProApp.Forms
             comboBoxColumn.Items.AddRange(new string[] { "Hours", "Days" });
 
             // Insert the ComboBox column next to the Quantity column
-            dataGridView1.Columns.Insert(2, comboBoxColumn); // Adjust the index as needed
+            labourDataGridView.Columns.Insert(2, comboBoxColumn); // Adjust the index as needed
         }
 
 
@@ -64,10 +198,10 @@ namespace SiteCostProApp.Forms
 
 
             // Check if the current row count is exceeded by user input
-            if (e.RowIndex == dataGridView1.RowCount - 1)
+            if (e.RowIndex == labourDataGridView.RowCount - 1)
             {
                 // Automatically add a new row if user starts typing in the last row
-                dataGridView1.Rows.Add();
+                labourDataGridView.Rows.Add();
             }
 
             if (e.RowIndex < 0)
@@ -79,8 +213,8 @@ namespace SiteCostProApp.Forms
                 try
                 {
                     // Parse Quantity and Unit Price
-                    var labourTypeCell = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-                    var unitPriceCell = dataGridView1.Rows[e.RowIndex].Cells[3].Value;
+                    var labourTypeCell = labourDataGridView.Rows[e.RowIndex].Cells[1].Value;
+                    var unitPriceCell = labourDataGridView.Rows[e.RowIndex].Cells[3].Value;
 
                     if (labourTypeCell != null && unitPriceCell != null)
                     {
@@ -91,11 +225,11 @@ namespace SiteCostProApp.Forms
                             decimal total = quantity * unitPrice;
 
                             // Set total value in the Total column
-                            dataGridView1.Rows[e.RowIndex].Cells[4].Value = total.ToString("F2"); // Format to 2 decimal places
+                            labourDataGridView.Rows[e.RowIndex].Cells[4].Value = total.ToString("F2"); // Format to 2 decimal places
                         }
                         else
                         {
-                            dataGridView1.Rows[e.RowIndex].Cells[4].Value = "Invalid";
+                            labourDataGridView.Rows[e.RowIndex].Cells[4].Value = "Invalid";
                         }
                     }
                 }
@@ -110,14 +244,58 @@ namespace SiteCostProApp.Forms
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-                string projectName = lblProjectName.Text.Replace("PROJECT: ", "").Trim();
+            double total = GetTotal("Total");
+            //MessageBox.Show(total.ToString());
 
-                // Create an instance of BudgetCalculator and pass the project name
-                BudgetCalculator calc = new BudgetCalculator(projectName);
-                this.Hide();
-                calc.ShowDialog();
-                this.Close();
+            UpdateLaboursToFirestore(projectName);
+
+            ProjectDetails projectDetails = new ProjectDetails(projectName, 00, 00, total);
+            projectDetails.Show();
+            this.Hide();
+        }
+
+
+        private async Task UpdateLaboursToFirestore(string projectName)
+        {
+            try
+            {
+                // Get the Firestore database instance
+                var db = FirestoreHelper.Database;
+
+                // Retrieve data from the DataGridView
+                var updatedLabours = new List<LabourProperty>();
+
+                foreach (DataGridViewRow row in labourDataGridView.Rows)
+                {
+                    // Skip new or empty rows
+                    if (row.IsNewRow || row.Cells["Labour_Type"].Value == null)
+                        continue;
+
+                    // Create a MaterialProperty object from DataGridView row
+                    var labour = new LabourProperty
+                    {
+                        Labour_Type = row.Cells["Labour_Type"].Value.ToString(),
+                        Unit = row.Cells["Unit"].Value?.ToString() ?? "",
+                        Work_Time = row.Cells["Work_Time"].Value?.ToString() ?? "",
+                        Unit_Vage = row.Cells["Unit_vage"].Value?.ToString() ?? "",
+                        Total = row.Cells["Total"].Value?.ToString() ?? ""
+
+                    };
+
+                    updatedLabours.Add(labour);
+                }
+
+                // Update only the Materials field in Firestore
+                var projectRef = db.Collection("Projects").Document(projectName);
+                await projectRef.UpdateAsync("Labour", updatedLabours);
+
+                MessageBox.Show("Labours updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while updating equipments: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    }
+    } 
+}
 

@@ -36,10 +36,10 @@ namespace SiteCostProApp.Classes
         public string Unit { get; set; }
 
         [FirestoreProperty]
-        public double UnitWage { get; set; }
+        public string Unit_Vage { get; set; }
 
         [FirestoreProperty]
-        public int Total { get; set; }
+        public string Total { get; set; }
 
        
     }
@@ -72,13 +72,13 @@ namespace SiteCostProApp.Classes
         public string Item_Name { get; set; }
 
         [FirestoreProperty]
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
 
         [FirestoreProperty]
-        public double Unit_Price { get; set; }
+        public string Unit_Price { get; set; }
 
         [FirestoreProperty]
-        public double Total { get; set; }
+        public string Total { get; set; }
 
        
     }

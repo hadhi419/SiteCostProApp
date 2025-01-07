@@ -50,10 +50,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Dubai", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(395, 136);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 51);
+            this.label1.Size = new System.Drawing.Size(183, 29);
             this.label1.TabIndex = 5;
             this.label1.Text = "EQUIPMENTS";
             // 
@@ -65,7 +65,7 @@
             this.lblProjectName.Location = new System.Drawing.Point(21, 20);
             this.lblProjectName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(151, 38);
+            this.lblProjectName.Size = new System.Drawing.Size(119, 30);
             this.lblProjectName.TabIndex = 0;
             this.lblProjectName.Text = "PROJECT: ";
             // 
@@ -147,7 +147,7 @@
             // 
             this.txtEquipmentCost.Location = new System.Drawing.Point(689, 186);
             this.txtEquipmentCost.Name = "txtEquipmentCost";
-            this.txtEquipmentCost.Size = new System.Drawing.Size(171, 22);
+            this.txtEquipmentCost.Size = new System.Drawing.Size(171, 20);
             this.txtEquipmentCost.TabIndex = 10;
             // 
             // Equipment_Name
@@ -174,6 +174,7 @@
             // 
             // Total
             // 
+            this.Total.DataPropertyName = "Total";
             this.Total.HeaderText = "Total";
             this.Total.MinimumWidth = 6;
             this.Total.Name = "Total";

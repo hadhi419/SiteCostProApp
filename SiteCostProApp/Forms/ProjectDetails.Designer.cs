@@ -52,29 +52,34 @@
             // linkMisc
             // 
             this.linkMisc.AutoSize = true;
-            this.linkMisc.Location = new System.Drawing.Point(244, 360);
+            this.linkMisc.Location = new System.Drawing.Point(183, 292);
+            this.linkMisc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkMisc.Name = "linkMisc";
-            this.linkMisc.Size = new System.Drawing.Size(30, 16);
+            this.linkMisc.Size = new System.Drawing.Size(25, 13);
             this.linkMisc.TabIndex = 32;
             this.linkMisc.TabStop = true;
             this.linkMisc.Text = "Edit";
+            this.linkMisc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMisc_LinkClicked);
             // 
             // linkLabour
             // 
             this.linkLabour.AutoSize = true;
-            this.linkLabour.Location = new System.Drawing.Point(244, 299);
+            this.linkLabour.Location = new System.Drawing.Point(183, 243);
+            this.linkLabour.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabour.Name = "linkLabour";
-            this.linkLabour.Size = new System.Drawing.Size(30, 16);
+            this.linkLabour.Size = new System.Drawing.Size(25, 13);
             this.linkLabour.TabIndex = 31;
             this.linkLabour.TabStop = true;
             this.linkLabour.Text = "Edit";
+            this.linkLabour.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabour_LinkClicked);
             // 
             // linkEquipment
             // 
             this.linkEquipment.AutoSize = true;
-            this.linkEquipment.Location = new System.Drawing.Point(244, 241);
+            this.linkEquipment.Location = new System.Drawing.Point(183, 196);
+            this.linkEquipment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkEquipment.Name = "linkEquipment";
-            this.linkEquipment.Size = new System.Drawing.Size(30, 16);
+            this.linkEquipment.Size = new System.Drawing.Size(25, 13);
             this.linkEquipment.TabIndex = 30;
             this.linkEquipment.TabStop = true;
             this.linkEquipment.Text = "Edit";
@@ -83,9 +88,10 @@
             // linkMaterial
             // 
             this.linkMaterial.AutoSize = true;
-            this.linkMaterial.Location = new System.Drawing.Point(244, 188);
+            this.linkMaterial.Location = new System.Drawing.Point(183, 153);
+            this.linkMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkMaterial.Name = "linkMaterial";
-            this.linkMaterial.Size = new System.Drawing.Size(30, 16);
+            this.linkMaterial.Size = new System.Drawing.Size(25, 13);
             this.linkMaterial.TabIndex = 29;
             this.linkMaterial.TabStop = true;
             this.linkMaterial.Text = "Edit";
@@ -93,46 +99,52 @@
             // 
             // txtTotal
             // 
-            this.txtTotal.Location = new System.Drawing.Point(679, 425);
+            this.txtTotal.Location = new System.Drawing.Point(509, 345);
+            this.txtTotal.Margin = new System.Windows.Forms.Padding(2);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.Size = new System.Drawing.Size(163, 22);
+            this.txtTotal.Size = new System.Drawing.Size(123, 20);
             this.txtTotal.TabIndex = 28;
             // 
             // txtMisc
             // 
-            this.txtMisc.Location = new System.Drawing.Point(679, 340);
+            this.txtMisc.Location = new System.Drawing.Point(509, 276);
+            this.txtMisc.Margin = new System.Windows.Forms.Padding(2);
             this.txtMisc.Name = "txtMisc";
-            this.txtMisc.Size = new System.Drawing.Size(163, 22);
+            this.txtMisc.Size = new System.Drawing.Size(123, 20);
             this.txtMisc.TabIndex = 27;
             // 
             // txtLabour
             // 
-            this.txtLabour.Location = new System.Drawing.Point(679, 285);
+            this.txtLabour.Location = new System.Drawing.Point(509, 232);
+            this.txtLabour.Margin = new System.Windows.Forms.Padding(2);
             this.txtLabour.Name = "txtLabour";
-            this.txtLabour.Size = new System.Drawing.Size(163, 22);
+            this.txtLabour.Size = new System.Drawing.Size(123, 20);
             this.txtLabour.TabIndex = 26;
             // 
             // txtEquipment
             // 
-            this.txtEquipment.Location = new System.Drawing.Point(679, 236);
+            this.txtEquipment.Location = new System.Drawing.Point(509, 192);
+            this.txtEquipment.Margin = new System.Windows.Forms.Padding(2);
             this.txtEquipment.Name = "txtEquipment";
-            this.txtEquipment.Size = new System.Drawing.Size(163, 22);
+            this.txtEquipment.Size = new System.Drawing.Size(123, 20);
             this.txtEquipment.TabIndex = 25;
             // 
             // txtMaterial
             // 
-            this.txtMaterial.Location = new System.Drawing.Point(679, 185);
+            this.txtMaterial.Location = new System.Drawing.Point(509, 150);
+            this.txtMaterial.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaterial.Name = "txtMaterial";
-            this.txtMaterial.Size = new System.Drawing.Size(163, 22);
+            this.txtMaterial.Size = new System.Drawing.Size(123, 20);
             this.txtMaterial.TabIndex = 24;
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(37, 437);
+            this.lblTotal.Location = new System.Drawing.Point(28, 355);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(86, 30);
+            this.lblTotal.Size = new System.Drawing.Size(72, 25);
             this.lblTotal.TabIndex = 22;
             this.lblTotal.Text = "TOTAL";
             // 
@@ -140,9 +152,10 @@
             // 
             this.lblMisc.AutoSize = true;
             this.lblMisc.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMisc.Location = new System.Drawing.Point(37, 356);
+            this.lblMisc.Location = new System.Drawing.Point(28, 289);
+            this.lblMisc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMisc.Name = "lblMisc";
-            this.lblMisc.Size = new System.Drawing.Size(169, 30);
+            this.lblMisc.Size = new System.Drawing.Size(143, 25);
             this.lblMisc.TabIndex = 21;
             this.lblMisc.Text = "Miscellaneous";
             // 
@@ -150,9 +163,10 @@
             // 
             this.lblEquipment.AutoSize = true;
             this.lblEquipment.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEquipment.Location = new System.Drawing.Point(37, 237);
+            this.lblEquipment.Location = new System.Drawing.Point(28, 193);
+            this.lblEquipment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEquipment.Name = "lblEquipment";
-            this.lblEquipment.Size = new System.Drawing.Size(134, 30);
+            this.lblEquipment.Size = new System.Drawing.Size(111, 25);
             this.lblEquipment.TabIndex = 20;
             this.lblEquipment.Text = "Equipment";
             // 
@@ -160,9 +174,10 @@
             // 
             this.lblLabour.AutoSize = true;
             this.lblLabour.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLabour.Location = new System.Drawing.Point(37, 299);
+            this.lblLabour.Location = new System.Drawing.Point(28, 243);
+            this.lblLabour.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLabour.Name = "lblLabour";
-            this.lblLabour.Size = new System.Drawing.Size(159, 30);
+            this.lblLabour.Size = new System.Drawing.Size(132, 25);
             this.lblLabour.TabIndex = 19;
             this.lblLabour.Text = "Labour Costs";
             // 
@@ -170,9 +185,10 @@
             // 
             this.lblMaterial.AutoSize = true;
             this.lblMaterial.Font = new System.Drawing.Font("Microsoft YaHei", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaterial.Location = new System.Drawing.Point(37, 185);
+            this.lblMaterial.Location = new System.Drawing.Point(28, 150);
+            this.lblMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMaterial.Name = "lblMaterial";
-            this.lblMaterial.Size = new System.Drawing.Size(172, 30);
+            this.lblMaterial.Size = new System.Drawing.Size(144, 25);
             this.lblMaterial.TabIndex = 18;
             this.lblMaterial.Text = "Material Costs";
             // 
@@ -181,19 +197,20 @@
             this.lblProjectName.AutoSize = true;
             this.lblProjectName.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProjectName.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblProjectName.Location = new System.Drawing.Point(21, 20);
-            this.lblProjectName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblProjectName.Location = new System.Drawing.Point(16, 16);
+            this.lblProjectName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(151, 38);
+            this.lblProjectName.Size = new System.Drawing.Size(119, 30);
             this.lblProjectName.TabIndex = 0;
             this.lblProjectName.Text = "PROJECT: ";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(738, 143);
+            this.label1.Location = new System.Drawing.Point(554, 116);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 16);
+            this.label1.Size = new System.Drawing.Size(23, 13);
             this.label1.TabIndex = 23;
             this.label1.Text = "Rs.";
             // 
@@ -202,10 +219,10 @@
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
             this.panel1.Controls.Add(this.lblProject);
             this.panel1.Controls.Add(this.lblProjectName);
-            this.panel1.Location = new System.Drawing.Point(34, 52);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5);
+            this.panel1.Location = new System.Drawing.Point(26, 42);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(820, 74);
+            this.panel1.Size = new System.Drawing.Size(615, 60);
             this.panel1.TabIndex = 17;
             // 
             // lblProject
@@ -213,17 +230,18 @@
             this.lblProject.AutoSize = true;
             this.lblProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProject.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblProject.Location = new System.Drawing.Point(175, 24);
+            this.lblProject.Location = new System.Drawing.Point(131, 20);
+            this.lblProject.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProject.Name = "lblProject";
-            this.lblProject.Size = new System.Drawing.Size(79, 29);
+            this.lblProject.Size = new System.Drawing.Size(60, 24);
             this.lblProject.TabIndex = 1;
             this.lblProject.Text = "label2";
             // 
             // ProjectDetails
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 519);
+            this.ClientSize = new System.Drawing.Size(666, 422);
             this.Controls.Add(this.linkMisc);
             this.Controls.Add(this.linkLabour);
             this.Controls.Add(this.linkEquipment);
@@ -240,6 +258,7 @@
             this.Controls.Add(this.lblMaterial);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ProjectDetails";
             this.Text = "ProjectDetails";
             this.Load += new System.EventHandler(this.ProjectDetails_Load);
